@@ -26,14 +26,14 @@ const resolvers = {
       }
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      await usersRepository.createUser({
+      const user = await usersRepository.createUser({
         email,
         password: hashedPassword,
         name,
         phone,
       });
 
-      return { email, name, phone };
+      return user;
     },
   },
 };
