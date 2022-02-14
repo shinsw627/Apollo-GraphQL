@@ -1,9 +1,11 @@
-const { gql } = require('apollo-server')
+const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-    type Query {
-        equipments: [Equipment]
-    }
-`
+  type Query {
+    equipments: [Equipment]
 
-module.exports = typeDefs
+    getAllUsers: [User]
+  }
+`;
+
+module.exports = typeDefs;

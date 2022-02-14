@@ -1,22 +1,27 @@
-const { ApolloServer } = require('apollo-server')
-const _ = require('lodash')
+const { ApolloServer } = require("apollo-server");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-const queries = require('./typedefs-resolvers/_queries')
-const mutations = require('./typedefs-resolvers/_mutations')
-const equipments = require('./typedefs-resolvers/equipments')
+const queries = require("./typedefs-resolvers/_queries");
+const mutations = require("./typedefs-resolvers/_mutations");
+const equipments = require("./typedefs-resolvers/equipments");
+const users = require("./typedefs-resolvers/users");
 
-const typeDefs = [
-    queries,
-    mutations,
-    equipments.typeDefs,
-]
+dotenv.config({
+  path: ".env",
+});
 
-const resolvers = [
-    equipments.resolvers
-]
+const typeDefs = [queries, mutations, equipments.typeDefs, users.typeDefs];
 
-const server =  new ApolloServer({typeDefs, resolvers})
+const resolvers = [equipments.resolvers, users.resolvers];
 
-server.listen().then(({url}) => {
-    console.log(`🚀  Server ready at ${url}`)
-})
+const server = new ApolloServer({ typeDefs, resolvers });
+
+mongoose.connect(process.env.MONGODB_URL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
