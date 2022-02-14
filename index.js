@@ -4,16 +4,15 @@ const dotenv = require("dotenv");
 
 const queries = require("./typedefs-resolvers/_queries");
 const mutations = require("./typedefs-resolvers/_mutations");
-const equipments = require("./typedefs-resolvers/equipments");
 const users = require("./typedefs-resolvers/users");
 
 dotenv.config({
   path: ".env",
 });
 
-const typeDefs = [queries, mutations, equipments.typeDefs, users.typeDefs];
+const typeDefs = [queries, mutations, users.typeDefs];
 
-const resolvers = [equipments.resolvers, users.resolvers];
+const resolvers = [users.resolvers];
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

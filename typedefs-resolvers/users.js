@@ -13,7 +13,8 @@ const typeDefs = gql`
 `;
 const resolvers = {
   Query: {
-    getAllUsers: async (parent, args) => await usersRepository.findAllUsers(),
+    getAllUsers: async (parent, args, context, info) =>
+      await usersRepository.findAllUsers(),
   },
   Mutation: {
     signUp: async (parent, args, context, info) => {
