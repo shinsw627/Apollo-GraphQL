@@ -1,16 +1,6 @@
-const { gql } = require("apollo-server");
 const usersRepository = require("../repositories/users.repositories");
 const bcrypt = require("bcrypt");
 
-const typeDefs = gql`
-  type User {
-    id: ID
-    email: String
-    password: String
-    name: String
-    phone: String
-  }
-`;
 const resolvers = {
   Query: {
     getAllUsers: async (parent, args, context, info) =>
@@ -22,8 +12,9 @@ const resolvers = {
       const isUserExist = await usersRepository.existsCheckByEmail(email);
 
       if (isUserExist) {
-        throw new Error("해당 유저는 이미 존재합니다.");
+        throw new Error("이미 존재하는 이메일 입니다.");
       }
+
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = await usersRepository.createUser({
@@ -38,7 +29,4 @@ const resolvers = {
   },
 };
 
-module.exports = {
-  typeDefs: typeDefs,
-  resolvers: resolvers,
-};
+module.exports = resolvers;
