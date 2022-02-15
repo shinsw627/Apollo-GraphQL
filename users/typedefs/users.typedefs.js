@@ -7,6 +7,7 @@ const typeDefs = gql`
     password: String
     name: String
     phone: String
+    role: Role
   }
 
   input UserInput {
@@ -14,6 +15,13 @@ const typeDefs = gql`
     password: String
     name: String
     phone: String
+  }
+
+  enum Role {
+    developer
+    designer
+    planner
+    ceo
   }
 `;
 
