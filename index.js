@@ -4,13 +4,14 @@ const dotenv = require("dotenv");
 const queries = require("./_queries");
 const mutations = require("./_mutations");
 const users = require("./users/users");
+const books = require("./books/books");
 
 dotenv.config({
   path: ".env",
 });
 
-const typeDefs = [queries, mutations, users.typeDefs];
-const resolvers = [users.resolvers];
+const typeDefs = [queries, mutations, users.typeDefs, books.typeDefs];
+const resolvers = [users.resolvers, books.resolvers];
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
