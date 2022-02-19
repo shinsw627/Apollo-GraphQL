@@ -10,11 +10,21 @@ const typeDefs = gql`
     role: Role
   }
 
+  type Token {
+    token: String
+  }
+
   input UserInput {
     email: String
     password: String
     name: String
     phone: String
+    role: Role
+  }
+
+  input UserLoginInput {
+    email: String
+    password: String
   }
 
   enum Role {

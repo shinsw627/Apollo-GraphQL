@@ -30,21 +30,25 @@ const resolvers = {
     logIn: async (parent, args, context, info) => {
       const { email, password } = args.user;
 
-      const user = usersRepository.findUserByEmail(email);
-
+      const user = await usersRepository.findUserByEmail(email);
+      console.log(user);
       if (!user) {
         throw new Error("이메일과 비밀번호를 확인하세요");
       }
 
       const isPasswordValidated = await bcrypt.compare(password, user.password);
-
+      console.log(isPasswordValidated);
       if (!isPasswordValidated) {
         throw new Error("이메일과 비밀번호를 확인하세요");
       }
 
       const payload = { email: email, sub: user.id };
+      const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
+
+      console.log(token);
+
       return {
-        token: jwt.sign(payload, process.env.JWT_SECRET_KEY),
+        token: token,
       };
     },
   },
