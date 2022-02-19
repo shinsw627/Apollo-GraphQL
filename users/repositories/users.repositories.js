@@ -1,4 +1,4 @@
-const User = require("../models/users.model");
+const User = require("../../models/users.model");
 
 async function findAllUsers() {
   return await User.find();
@@ -13,8 +13,14 @@ async function createUser(userInfo) {
   return await User.create(userInfo);
 }
 
+async function findUserByEmail(email) {
+  const result = await User.findOne({ email });
+  return result;
+}
+
 module.exports = {
   findAllUsers,
   existsCheckByEmail,
   createUser,
+  findUserByEmail,
 };

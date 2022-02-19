@@ -1,5 +1,6 @@
 const usersRepository = require("../repositories/users.repositories");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const resolvers = {
   Query: {
@@ -25,6 +26,26 @@ const resolvers = {
       });
 
       return user;
+    },
+    logIn: async (parent, args, context, info) => {
+      const { email, password } = args.user;
+
+      const user = usersRepository.findUserByEmail(email);
+
+      if (!user) {
+        throw new Error("이메일과 비밀번호를 확인하세요");
+      }
+
+      const isPasswordValidated = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValidated) {
+        throw new Error("이메일과 비밀번호를 확인하세요");
+      }
+
+      const payload = { email: email, sub: user.id };
+      return {
+        token: jwt.sign(payload, process.env.JWT_SECRET_KEY),
+      };
     },
   },
 };
