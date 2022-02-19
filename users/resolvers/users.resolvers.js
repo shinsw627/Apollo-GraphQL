@@ -31,7 +31,7 @@ const resolvers = {
       const { email, password } = args.user;
 
       const user = await usersRepository.findUserByEmail(email);
-      console.log(user);
+
       if (!user) {
         throw new Error("이메일과 비밀번호를 확인하세요");
       }
@@ -44,8 +44,6 @@ const resolvers = {
 
       const payload = { email: email, sub: user.id };
       const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
-
-      console.log(token);
 
       return {
         token: token,
