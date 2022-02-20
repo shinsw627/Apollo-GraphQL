@@ -8,6 +8,7 @@ const resolvers = {
       await usersRepository.findAllUsers(),
   },
   Mutation: {
+    // 회원가입
     signUp: async (parent, args, context, info) => {
       const { email, password, name, phone } = args.user;
       const isUserExist = await usersRepository.existsCheckByEmail(email);
@@ -27,6 +28,7 @@ const resolvers = {
 
       return user;
     },
+    // 로그인
     logIn: async (parent, args, context, info) => {
       const { email, password } = args.user;
 
