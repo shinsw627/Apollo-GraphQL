@@ -22,6 +22,7 @@ const typeDefs = gql`
     RED
     GREEN
     WHITE
+    PURPLE
   }
 
   input BookInput {
