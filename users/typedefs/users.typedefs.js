@@ -21,7 +21,7 @@ const typeDefs = gql`
     phone: String
     role: Role
   }
-
+  
   input UserLoginInput {
     email: String
     password: String
@@ -30,7 +30,7 @@ const typeDefs = gql`
   enum Role {
     developer
     designer
-    planner
+    product-manager
     ceo
   }
 `;
